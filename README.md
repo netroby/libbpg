@@ -18,9 +18,12 @@ Various metadata (such as EXIF, ICC profile, XMP) can be included.
 ### Download
 
 The following archive contains the source code of the bpgenc and bpgdec command line utilities (for Linux) and the associated libbpg library (read the README file in the archive). It also includes the source code of the Javascript decoder.
-libbpg-0.9.2.tar.gz
 
-Binary distribution for Windows: bpg-0.9.2-win32.zip
+[libbpg-0.9.2.tar.gz](https://github.com/netroby/libbpg/releases/download/0.9.2/libbpg-0.9.2.tar.gz)
+
+Binary distribution for Windows:
+
+[bpg-0.9.2-win32.zip](https://github.com/netroby/libbpg/releases/download/0.9.2/bpg-0.9.2-win32.zip)
 
 ### Performance
 
