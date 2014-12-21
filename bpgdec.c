@@ -174,18 +174,20 @@ static void bpg_show_info(const char *filename, int show_extensions)
     FILE *f;
     BPGImageInfo p_s, *p = &p_s;
     BPGExtensionData *first_md, *md;
-    static const char *format_str[4] = {
+    static const char *format_str[6] = {
         "Gray",
         "4:2:0",
         "4:2:2",
         "4:4:4",
+        "4:2:0_video",
+        "4:2:2_video",
     };
     static const char *color_space_str[BPG_CS_COUNT] = {
         "YCbCr",
         "RGB",
         "YCgCo",
-        "YCbCrK",
-        "CMYK",
+        "YCbCr_BT709",
+        "YCbCr_BT2020",
     };
     static const char *extension_tag_str[] = {
         "Unknown",
@@ -220,12 +222,21 @@ static void bpg_show_info(const char *filename, int show_extensions)
         fprintf(stderr, "Not a BPG image\n");
         exit(1);
     }
-    printf("size=%dx%d color_space=%s alpha=%d format=%s bit_depth=%d\n", 
+    printf("size=%dx%d color_space=%s",
            p->width, p->height,
-           p->format == BPG_FORMAT_GRAY ? "Gray" : color_space_str[p->color_space], 
-           p->has_alpha,
+           p->format == BPG_FORMAT_GRAY ? "Gray" : color_space_str[p->color_space]);
+    if (p->has_w_plane) {
+        printf(" w_plane=%d", p->has_w_plane);
+    }
+    if (p->has_alpha) {
+        printf(" alpha=%d premul=%d", 
+               p->has_alpha, p->premultiplied_alpha);
+    }
+    printf(" format=%s limited_range=%d bit_depth=%d\n",
            format_str[p->format],
+           p->limited_range,
            p->bit_depth);
+           
     if (first_md) {
         const char *tag_name;
         printf("Extension data:\n");
